@@ -1,6 +1,6 @@
 package moe.shizuku.manager.home
 
-import moe.shizuku.manager.patch
+import moe.shizuku.manager.patch.Util
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
