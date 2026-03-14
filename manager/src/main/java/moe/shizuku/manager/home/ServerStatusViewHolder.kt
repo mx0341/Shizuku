@@ -1,5 +1,6 @@
 package moe.shizuku.manager.home
 
+import moe.shizuku.manager.patch
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -44,7 +45,7 @@ class ServerStatusViewHolder(private val binding: HomeServerStatusBinding, root:
         } else {
             iconView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_server_error_24dp))
         }
-        val user = if (isRoot) "root" else "adb"
+        val user = if (isRoot) "root" else Util.getNameByUid(status.uid)
         val title = if (ok) {
             context.getString(R.string.home_status_service_is_running, context.getString(R.string.app_name))
         } else {

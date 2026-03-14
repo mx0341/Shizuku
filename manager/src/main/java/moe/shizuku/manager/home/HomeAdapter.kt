@@ -35,7 +35,7 @@ class HomeAdapter(private val homeModel: HomeViewModel, private val appsModel: A
     fun updateData() {
         val status = homeModel.serviceStatus.value?.data ?: return
         val grantedCount = appsModel.grantedCount.value?.data ?: 0
-        val adbPermission = status.permission
+        val adbPermission = status.permission || status.uid == 1000
         val running = status.isRunning
         val isPrimaryUser = UserHandleCompat.myUserId() == 0
 
