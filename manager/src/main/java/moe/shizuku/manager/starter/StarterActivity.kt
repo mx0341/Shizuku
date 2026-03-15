@@ -104,7 +104,7 @@ class StarterActivity : AppBarActivity() {
     }
 }
 
-private class ViewModel(context: Context, root: Boolean, host: String?, port: Int, system: Boolean) : androidx.lifecycle.ViewModel() {
+private class ViewModel(context: Context, root: Boolean, host: String?, port: Int, system: Boolean?) : androidx.lifecycle.ViewModel() {
 
     private val sb = StringBuilder()
     private val _output = MutableLiveData<Resource<StringBuilder>>()
@@ -199,7 +199,7 @@ private class ViewModel(context: Context, root: Boolean, host: String?, port: In
         }
     }
     
-    private fun startSystem(Context context) {
+    private fun startSystem(context: Context) {
         sb.append("Starting with CVE-2024-31317 poc...").append('\n').append('\n')
         postResult()
 
@@ -207,7 +207,7 @@ private class ViewModel(context: Context, root: Boolean, host: String?, port: In
             try {
                 sb.append(Util.startSysShizuku(context))
             } catch (e: Throwable) {
-                sb.append("Can not use CVE-2024-31317 poc : (")append('\n').append('\n')
+                sb.append("Can not use CVE-2024-31317 poc : (").append('\n').append('\n')
                 postResult(e)
                 return@launch
             }
