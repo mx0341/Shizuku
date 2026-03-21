@@ -133,4 +133,10 @@
 \n通常，在「開發人員選項」中調整一些選項即可解除此限制。請閱讀說明來瞭解具體的作業方式。
 \n
 \n您可能需要重新啟動 Shizuku 以使作業生效。</string>
+    <!-- Home - 系统 -->
+    <string name="home_system_title"><![CDATA[啟動 (針對 CVE-2024-31317 設備)]]></string>
+    <string name="home_system_description"><![CDATA[事實上，對於可以利用 CVE-2024-31317 漏洞提升權限的設備，可以使用權限提升來允許 Shizuku 在沒有 adb 權限的情況下以系統權限運行。]]></string>
+    <string name="home_system_description_warn"><![CDATA[你的安全補丁過新或版本不屬於9-13，可能無法利用漏洞。]]></string>
+    <string name="home_system_button_start">啟動</string>
+    <string name="home_system_button_restart">重啟</string>
 </resources>

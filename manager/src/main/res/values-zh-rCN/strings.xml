@@ -131,8 +131,8 @@
     
     <!-- Home - 系统 -->
     <string name="home_system_title"><![CDATA[启动 (针对 CVE-2024-31317 设备)]]></string>
-    <string name="home_system_description"><![CDATA[事实上，对于可以利用 CVE-2024-31317 漏洞提升权限的设备，可以使用权限提升让 Shizuku 以系统权限运行。]]></string>
-    <!--<string name="home_system_description_sui"><![CDATA[If you are using Magisk, you can try %1$s. For root users, it will eventually replace Shizuku. Note, existing applications needs to change a little to use %2$s.]]></string>-->
+    <string name="home_system_description"><![CDATA[事实上，对于可以利用 CVE-2024-31317 漏洞提升权限的设备，可以使用权限提升来允许 Shizuku 在没有 adb 权限的情况下以系统权限运行。]]></string>
+    <string name="home_system_description_warn"><![CDATA[你的安全补丁过新或版本不属于9-13，可能无法利用漏洞。]]></string>
     <string name="home_system_button_start">启动</string>
     <string name="home_system_button_restart">重启</string>
 </resources>

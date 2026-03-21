@@ -66,8 +66,8 @@
     
     <!-- Home - System -->
     <string name="home_system_title"><![CDATA[Start (for CVE-2024-31317 devices)]]></string>
-    <string name="home_system_description"><![CDATA[In fact, for devices that can use the CVE-2024-31317 vulnerability to escalate privileges, it is possible to use privilege escalation to allow Shizuku to operate with System permissions.]]></string>
-    <!--<string name="home_system_description_sui"><![CDATA[If you are using Magisk, you can try %1$s. For root users, it will eventually replace Shizuku. Note, existing applications needs to change a little to use %2$s.]]></string>-->
+    <string name="home_system_description"><![CDATA[In fact, for devices that can exploit the CVE-2024-31317 vulnerability to escalate privileges, privilege escalation can be used to allow Shizuku to run with system privileges without adb permissions.]]></string>
+    <string name="home_system_description_warn"><![CDATA[Your security patch is too new or your version does not belong to 9-13, so the vulnerability may not be exploitable]]></string>
     <string name="home_system_button_start">Start</string>
     <string name="home_system_button_restart">Restart</string>
 

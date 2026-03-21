@@ -1,5 +1,6 @@
 package moe.shizuku.manager.home
 
+import moe.shizuku.manager.patch.Util
 import android.content.Intent
 import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
@@ -66,6 +67,14 @@ class StartSystemViewHolder(private val binding: HomeStartSystemBinding, root: V
                     R.string.home_system_description
                 )
             )
+            
+        if (!Util.canUsePoc()) {
+            sb.append("<p>").sb.append(
+                context.getString(
+                    R.string.home_system_description_warn
+                )
+            )
+        }
 
         binding.text1.text = sb.toString()
     }
