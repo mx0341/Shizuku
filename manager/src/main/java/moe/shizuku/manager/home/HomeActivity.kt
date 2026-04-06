@@ -138,13 +138,13 @@ abstract class HomeActivity : AppBarActivity() {
                     .setMessage(R.string.dialog_freeze_message)
                     .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
                         try {
-                            Shizuku.freeze()
+                            Shizuku.freezeService()
                         } catch (e: Throwable) {
                         }
                     }
                     .setNegativeButton(android.R.string.cancel)  { _: DialogInterface?, _: Int ->
                         try {
-                            Shizuku.unfreeze()
+                            Shizuku.unfreezeService()
                         } catch (e: Throwable) {
                         }
                     }
