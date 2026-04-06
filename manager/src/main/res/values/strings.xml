@@ -129,7 +129,12 @@ With %1$s, in any terminal app, you can connect to and interact with the shell r
     <!-- Stop -->
     <string name="action_stop">Stop Shizuku</string>
     <string name="dialog_stop_message">Shizuku service will be stopped.</string>
-
+    
+    <!-- Freeze -->
+    <string name="action_freeze">Freeze Shizuku</string>
+    <string name="dialog_freeze_message">Shizuku service will be frozen.</string>
+    <string name="dialog_unfreeze_message">Shizuku service will be unfrozen.</string>
+    
     <!-- Notification -->
     <string name="notification_channel_service_status">Service start status</string>
     <string name="notification_service_starting">Shizuku service is starting…</string>

@@ -57,7 +57,6 @@ import rikka.shizuku.server.util.HandlerUtil;
 import rikka.shizuku.server.util.UserHandleCompat;
 
 public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuClientManager, ShizukuConfigManager> {
-
     public static void main(String[] args) {
         DdmHandleAppName.setAppName("shizuku_server", 0);
         RishConfig.setLibraryPath(System.getProperty("shizuku.library.path"));

@@ -130,6 +130,27 @@ abstract class HomeActivity : AppBarActivity() {
                     .show()
                 true
             }
+            R.id.action_freeze -> {
+                if (!Shizuku.pingBinder()) {
+                    return true
+                }
+                MaterialAlertDialogBuilder(this)
+                    .setMessage(R.string.dialog_freeze_message)
+                    .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
+                        try {
+                            Shizuku.freeze()
+                        } catch (e: Throwable) {
+                        }
+                    }
+                    .setNegativeButton(android.R.string.cancel)  { _: DialogInterface?, _: Int ->
+                        try {
+                            Shizuku.unfreeze()
+                        } catch (e: Throwable) {
+                        }
+                    }
+                    .show()
+                true
+            }
             R.id.action_settings -> {
                 startActivity(Intent(this, SettingsActivity::class.java))
                 true
