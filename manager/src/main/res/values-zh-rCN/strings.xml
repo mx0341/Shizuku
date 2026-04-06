@@ -65,7 +65,7 @@
     <string name="dialog_stop_message">Shizuku 服务将被停止。</string>
     <string name="paring_code_is_wrong">配对码错误。</string>
     <string name="cannot_connect_port">无法连接至无线调试服务。</string>
-    <string name="adb_pairing_requires_multi_window">请先进入分屏（多窗口）模式。</string>
+    <string name="adb_pairin*g_requires_multi_window">请先进入分屏（多窗口）模式。</string>
     <string name="adb_error_key_store">无法为无线调试生成密钥。\n这可能是因为此设备上的 KeyStore 机制已损坏。</string>
     <string name="adb_pair_required">请先进行配对步骤。</string>
     <string name="adb_pairing_requires_multi_window_reason">系统要求配对对话框始终可见，使用分屏模式是使此应用和系统对话框同时可见的唯一方法。</string>
@@ -139,4 +139,5 @@
     <!-- 冻结 -->
     <string name="action_freeze">冻结 Shizuku</string>
     <string name="dialog_freeze_message">Shizuku 服务将被冻结。</string>
+    <string name="dialog_unfreeze_message">Shizuku 服务将被解冻。</string>
 </resources>
