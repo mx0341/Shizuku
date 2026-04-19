@@ -11,11 +11,6 @@
         android:id="@+id/action_stop"
         android:title="@string/action_stop"
         android:showAsAction="never"/>
-        
-    <item
-        android:id="@+id/action_freeze"
-        android:title="@string/action_freeze"
-        android:showAsAction="never"/>
 
     <item
         android:id="@+id/action_about"

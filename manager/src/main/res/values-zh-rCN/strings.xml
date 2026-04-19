@@ -135,9 +135,4 @@
     <string name="home_system_description_warn"><![CDATA[你的安全补丁过新或版本不属于9-13，可能无法利用漏洞。]]></string>
     <string name="home_system_button_start">启动</string>
     <string name="home_system_button_restart">重启</string>
-    
-    <!-- 冻结 -->
-    <string name="action_freeze">冻结 Shizuku</string>
-    <string name="dialog_freeze_message">Shizuku 服务将被冻结。</string>
-    <string name="dialog_unfreeze_message">Shizuku 服务将被解冻。</string>
 </resources>
