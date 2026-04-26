@@ -101,14 +101,14 @@ abstract class HomeActivity : AppBarActivity() {
                     .append(
                         getString(
                             R.string.about_view_modify,
-                            "<b><a href=\"https://github.com/mx0341\">暝绡</a></b>"
+                            "<b><a href=\"https://github.com/Whitehair\">暝绡</a></b>"
                         )
                     )
                 .append("<br>")
                 .append(
                     getString(
                         R.string.about_view_source_code,
-                        "<b><a href=\"https://github.com/mx0341/Shizuku\">GitHub</a></b>"
+                        "<b><a href=\"https://github.com/Whitehairt/Shizuku\">GitHub</a></b>"
                     )
                 )
                 binding.sourceCode.text = sb.toHtml(HtmlCompat.FROM_HTML_OPTION_TRIM_WHITESPACE)
