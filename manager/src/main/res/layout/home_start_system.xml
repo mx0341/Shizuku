@@ -51,9 +51,7 @@
         android:id="@android:id/button2"
         style="@style/CardButton"
         android:enabled="false"
-        android:text="@string/home_system_button_restart"
-        android:visibility="gone"
-        app:icon="@drawable/ic_server_restart"
-        tools:visibility="visible" />
+        android:text="@string/home_system_button_settings"
+        app:icon="@drawable/ic_action_settings_24dp"/>
 
 </LinearLayout>

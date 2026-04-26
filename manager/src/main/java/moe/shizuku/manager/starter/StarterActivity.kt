@@ -2,6 +2,7 @@ package moe.shizuku.manager.starter
 
 import moe.shizuku.manager.patch.Util
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -200,18 +201,31 @@ private class ViewModel(context: Context, root: Boolean, host: String?, port: In
     }
     
     private fun startSystem(context: Context) {
-        sb.append("Starting with CVE-2024-31317 poc...").append('\n').append('\n')
-        postResult()
-
-        GlobalScope.launch(Dispatchers.IO) {
-            try {
-                sb.append(Util.startSysShizuku(context))
-            } catch (e: Throwable) {
-                sb.append("Can not use CVE-2024-31317 poc : (").append('\n').append('\n')
-                postResult(e)
-                return@launch
+        MaterialAlertDialogBuilder(context)
+            .setMessage(R.string.warn_system_poc)
+            .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
+                sb.append("Starting with CVE-2024-31317 poc...").append('\n').append('\n')
+                postResult()
+    
+                GlobalScope.launch(Dispatchers.IO) {
+                    try {
+                        sb.append(Util.startSysShizuku(context))
+                    } catch (e: Throwable) {
+                        sb.append("Can not use CVE-2024-31317 poc : (").append('\n').append('\n')
+                        postResult(e)
+                        return@launch
+                    }
+                    postResult()
+                }
             }
-            postResult()
-        }
+            .setNegativeButton(android.R.string.cancel) { _: DialogInterface?, _: Int ->
+                sb.append("Permission denied :(\nIf you want to obtain System-Shizuku permission, please click Agree")
+                postResult()
+                
+                GlobalScope.launch(Dispatchers.IO) {
+                    return@launch
+                }
+            }
+            .show()
     }
 }

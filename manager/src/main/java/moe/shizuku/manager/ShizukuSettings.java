@@ -25,6 +25,10 @@ public class ShizukuSettings {
     public static final String NIGHT_MODE = "night_mode";
     public static final String LANGUAGE = "language";
     public static final String KEEP_START_ON_BOOT = "start_on_boot";
+    public static final String HIDE_SYSTEM_SHIZUKU = "hide_system_shizuku";
+    
+    public static final String POC_GID = "poc_gid";
+    public static final String POC_GROUP = "poc_group";
 
     private static SharedPreferences sPreferences;
 
@@ -61,6 +65,22 @@ public class ShizukuSettings {
             sPreferences = getSettingsStorageContext(context)
                     .getSharedPreferences(NAME, Context.MODE_PRIVATE);
         }
+    }
+    
+    public static int getPocGid() {
+        return getPreferences().getInt(POC_GID, 9997);
+    }
+    
+    public static void setPocGid(int gid) {
+        getPreferences().edit().putInt(POC_GID, gid).apply();
+    }
+    
+    public static String getPocGroup() {
+        return getPreferences().getString(POC_GROUP, "3003");
+    }
+    
+    public static void setPocGroup(String group) {
+        getPreferences().edit().putString(POC_GROUP, group).apply();
     }
 
     @IntDef({

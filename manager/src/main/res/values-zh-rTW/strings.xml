@@ -28,8 +28,11 @@
     <string name="toast_copied_to_clipboard">%s
 \n已複製到剪貼簿。</string>
     <string name="dialog_requesting_legacy_button_open_shizuku">開啟 Shizuku</string>
+    
     <string name="action_about">關於</string>
+    <string name="about_view_modify">由 %s 修改</string>
     <string name="about_view_source_code">在 %s 檢視原始碼</string>
+    
     <string name="settings_title">設定</string>
     <string name="start_with_root_failed">未授予 Root 權限或是此裝置沒有 Root，因此無法啟動服務。</string>
     <string name="notification_channel_service_status">服務啟動狀態</string>
@@ -138,5 +141,6 @@
     <string name="home_system_description"><![CDATA[事實上，對於可以利用 CVE-2024-31317 漏洞提升權限的設備，可以使用權限提升來允許 Shizuku 在沒有 adb 權限的情況下以系統權限運行。]]></string>
     <string name="home_system_description_warn"><![CDATA[你的安全補丁過新或版本不屬於9-13，可能無法利用漏洞。]]></string>
     <string name="home_system_button_start">啟動</string>
-    <string name="home_system_button_restart">重啟</string>
+    <string name="home_system_button_settings">設定</string>
+    <string name="configs">配置</string>
 </resources>

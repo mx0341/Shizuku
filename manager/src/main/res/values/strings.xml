@@ -69,7 +69,7 @@
     <string name="home_system_description"><![CDATA[In fact, for devices that can exploit the CVE-2024-31317 vulnerability to escalate privileges, privilege escalation can be used to allow Shizuku to run with system privileges without adb permissions.]]></string>
     <string name="home_system_description_warn"><![CDATA[Your security patch is too new or your version does not belong to 9-13, so the vulnerability may not be exploitable]]></string>
     <string name="home_system_button_start">Start</string>
-    <string name="home_system_button_restart">Restart</string>
+    <string name="home_system_button_settings">Settings</string>
 
     <!-- Home - Application management -->
     <string name="home_app_management_title">Application management</string>
@@ -110,6 +110,7 @@ With %1$s, in any terminal app, you can connect to and interact with the shell r
 
     <!-- Settings -->
     <string name="settings_title">Settings</string>
+    <string name="configs">Configs</string>
     <string name="settings_language">Language</string>
     <string name="settings_user_interface">Appearance</string>
     <string name="settings_black_night_theme">Black night theme</string>
@@ -124,6 +125,7 @@ With %1$s, in any terminal app, you can connect to and interact with the shell r
 
     <!-- About -->
     <string name="action_about">About</string>
+    <string name="about_view_modify"><![CDATA[Modified by %s]]></string>
     <string name="about_view_source_code"><![CDATA[View source code at %s]]></string>
 
     <!-- Stop -->
@@ -158,6 +160,7 @@ With %1$s, in any terminal app, you can connect to and interact with the shell r
 
     <!-- Starter -->
     <string name="starter">Starter</string>
+    <string name="warn_system_poc">High risk, do not touch the phone while running the PoC to prevent any issues.</string>
     <string name="starting_root_shell" translatable="false">Starting root shell…</string>
     <string name="start_with_root_failed">Can\'t start service because root permission is not granted or this device is not rooted.</string>
 

@@ -27,8 +27,11 @@
     <string name="home_app_management_view_authorized_apps">点按以管理授权的应用</string>
     <string name="toast_copied_to_clipboard">%s\n已被复制到剪贴板。</string>
     <string name="dialog_requesting_legacy_button_open_shizuku">打开 Shizuku</string>
+    
     <string name="action_about">关于</string>
+    <string name="about_view_modify"><![CDATA[由 %s 修改]]></string>
     <string name="about_view_source_code"><![CDATA[在 %s 查看源码]]></string>
+    
     <string name="settings_title">设置</string>
     <string name="start_with_root_failed">未授予 root 权限或是该设备没有 root，因此无法启动服务。</string>
     <string name="notification_channel_service_status">服务启动状态</string>
@@ -58,6 +61,7 @@
     <string name="dialog_adb_pairing_title">与设备配对</string>
     <string name="dialog_adb_pairing_paring_code">配对码</string>
     <string name="starter">启动程序</string>
+    <string name="warn_system_poc">高危，在运行 poc 时请勿触碰手机，以防出现问题。</string>
     <string name="dialog_adb_invalid_port">端口号是一个 1 至 65535 的整数。</string>
     <string name="home_wireless_adb_title"><![CDATA[通过无线调试启动]]></string>
     <string name="home_wireless_adb_description"><![CDATA[在 Android 11 或更高版本上，您可以直接从您的设备启用无线调试并启动 Shizuku，无需连接到计算机。<p>请先查看分步骤指南。]]></string>
@@ -134,5 +138,6 @@
     <string name="home_system_description"><![CDATA[事实上，对于可以利用 CVE-2024-31317 漏洞提升权限的设备，可以使用权限提升来允许 Shizuku 在没有 adb 权限的情况下以系统权限运行。]]></string>
     <string name="home_system_description_warn"><![CDATA[你的安全补丁过新或版本不属于9-13，可能无法利用漏洞。]]></string>
     <string name="home_system_button_start">启动</string>
-    <string name="home_system_button_restart">重启</string>
+    <string name="home_system_button_settings">设置</string>
+    <string name="configs">配置</string>
 </resources>

@@ -22,6 +22,7 @@ import moe.shizuku.manager.utils.AppIconCache
 import rikka.core.ktx.unsafeLazy
 import rikka.lifecycle.Status
 import rikka.lifecycle.viewModels
+import rikka.html.text.HtmlCompat
 import rikka.recyclerview.addEdgeSpacing
 import rikka.recyclerview.addItemSpacing
 import rikka.recyclerview.fixEdgeEffect
@@ -96,10 +97,21 @@ abstract class HomeActivity : AppBarActivity() {
             R.id.action_about -> {
                 val binding = AboutDialogBinding.inflate(LayoutInflater.from(this), null, false)
                 binding.sourceCode.movementMethod = LinkMovementMethod.getInstance()
-                binding.sourceCode.text = getString(
-                    R.string.about_view_source_code,
-                    "<b><a href=\"https://github.com/RikkaApps/Shizuku\">GitHub</a></b>"
-                ).toHtml()
+                val sb = StringBuilder()
+                    .append(
+                        getString(
+                            R.string.about_view_modify,
+                            "<b><a href=\"https://github.com/mx0341\">暝绡</a></b>"
+                        )
+                    )
+                .append("<br>")
+                .append(
+                    getString(
+                        R.string.about_view_source_code,
+                        "<b><a href=\"https://github.com/mx0341/Shizuku\">GitHub</a></b>"
+                    )
+                )
+                binding.sourceCode.text = sb.toHtml(HtmlCompat.FROM_HTML_OPTION_TRIM_WHITESPACE)
                 binding.icon.setImageBitmap(
                     AppIconCache.getOrLoadBitmap(
                         this,
