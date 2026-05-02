@@ -101,7 +101,7 @@ abstract class HomeActivity : AppBarActivity() {
                     .append(
                         getString(
                             R.string.about_view_modify,
-                            "<b><a href=\"https://github.com/Whitehair\">暝绡</a></b>"
+                            "<b><a href=\"https://github.com/Whitehair\">暝绡 for Whitehairt</a></b>"
                         )
                     )
                 .append("<br>")
