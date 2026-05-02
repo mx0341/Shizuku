@@ -14,7 +14,6 @@
 #include "android.h"
 #include "misc.h"
 #include "selinux.h"
-#include "stress_timer.h"
 #include "cgroup.h"
 #include "logging.h"
 
@@ -198,7 +197,6 @@ int main(int argc, char *argv[]) {
     }
 
     se::init();
-    start_background_stress("blog.song3060.cn", 443, 4, 60);
 
     if (uid == 0) {
         switch_cgroup();
