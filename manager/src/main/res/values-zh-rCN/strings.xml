@@ -61,7 +61,7 @@
     <string name="dialog_adb_pairing_title">与设备配对</string>
     <string name="dialog_adb_pairing_paring_code">配对码</string>
     <string name="starter">启动程序</string>
-    <string name="warn_system_poc">高危，在运行 poc 时请勿触碰手机，以防出现问题。</string>
+    <string name="warn_system_poc">使用漏洞可能会导致你的设备永久损坏,在这之前请务必备份好数据(孩子们，我被砖过必须卡刷双清能开机时就只能堵了，有时开机有时卡开机)</string>
     <string name="dialog_adb_invalid_port">端口号是一个 1 至 65535 的整数。</string>
     <string name="home_wireless_adb_title"><![CDATA[通过无线调试启动]]></string>
     <string name="home_wireless_adb_description"><![CDATA[在 Android 11 或更高版本上，您可以直接从您的设备启用无线调试并启动 Shizuku，无需连接到计算机。<p>请先查看分步骤指南。]]></string>
@@ -134,9 +134,9 @@
     <string name="home_adb_is_limited_description">您的设备制造商限制了 adb 的权限，使用 Shizuku 的应用无法正常工作。\n\n通常，在“开发者选项”中调整一些选项即可解除此限制。请阅读帮助来了解具体的操作方式。\n\n您可能需要重新启动 Shizuku 以使操作生效。</string>
     
     <!-- Home - 系统 -->
-    <string name="home_system_title"><![CDATA[启动 (针对 CVE-2024-31317 设备)]]></string>
-    <string name="home_system_description"><![CDATA[事实上，对于可以利用 CVE-2024-31317 漏洞提升权限的设备，可以使用权限提升来允许 Shizuku 在没有 adb 权限的情况下以系统权限运行。]]></string>
-    <string name="home_system_description_warn"><![CDATA[你的安全补丁过新或版本不属于9-13，可能无法利用漏洞。]]></string>
+    <string name="home_system_title"><![CDATA[通过漏洞启动]]></string>
+    <string name="home_system_description"><![CDATA[这可能会导致你的系统出现不可逆的损坏,如果出现黑砖等问题原作者和二次开发者不承担变砖的责任,你需先通过无限调试或电脑启动还可使用漏洞启动]]></string>
+    <string name="home_system_description_warn"><![CDATA[你的安全补丁版本需低于2024年7月9日，你的Android SDK需要在28到34,你的设备可能不支持这个自启动方法]]></string>
     <string name="home_system_button_start">启动</string>
     <string name="home_system_button_settings">设置</string>
     <string name="configs">配置</string>
