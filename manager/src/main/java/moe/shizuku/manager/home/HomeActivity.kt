@@ -91,19 +91,26 @@ abstract class HomeActivity : AppBarActivity() {
         menuInflater.inflate(R.menu.main, menu)
         return true
     }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_about -> {
-                val binding = AboutDialogBinding.inflate(LayoutInflater.from(this), null, false)
-                binding.sourceCode.movementMethod = LinkMovementMethod.getInstance()
-                val sb = StringBuilder()
-                    .append(
-                        getString(
-                            R.string.about_view_modify,
-                            "<b><a href=\"https://github.com/mx0341\">暝绡</a></b>"
-                        )
+    return when (item.itemId) {
+        R.id.action_about -> {
+            val binding = AboutDialogBinding.inflate(LayoutInflater.from(this), null, false)
+            binding.sourceCode.movementMethod = LinkMovementMethod.getInstance()
+
+            val sb = StringBuilder()
+                .append(
+                    getString(
+                        R.string.about_view_modify,
+                        "<b><a href=\"https://github.com/Whitehairt\">Whitehairt</a></b>"
                     )
+                )
+                .append("<br>")
+                .append(
+                    getString(
+                        R.string.about_view_modify,
+                        "<b><a href=\"https://github.com/mx0341\">mx0341</a></b>"
+                    )
+                )
                 .append("<br>")
                 .append(
                     getString(
@@ -111,43 +118,48 @@ abstract class HomeActivity : AppBarActivity() {
                         "<b><a href=\"https://github.com/mx0341/Shizuku\">GitHub</a></b>"
                     )
                 )
-                binding.sourceCode.text = sb.toHtml(HtmlCompat.FROM_HTML_OPTION_TRIM_WHITESPACE)
-                binding.icon.setImageBitmap(
-                    AppIconCache.getOrLoadBitmap(
-                        this,
-                        applicationInfo,
-                        Process.myUid() / 100000,
-                        resources.getDimensionPixelOffset(R.dimen.default_app_icon_size)
-                    )
+
+            binding.sourceCode.text = sb.toHtml(HtmlCompat.FROM_HTML_OPTION_TRIM_WHITESPACE)
+            binding.icon.setImageBitmap(
+                AppIconCache.getOrLoadBitmap(
+                    this,
+                    applicationInfo,
+                    Process.myUid() / 100000,
+                    resources.getDimensionPixelOffset(R.dimen.default_app_icon_size)
                 )
-                binding.versionName.text = packageManager.getPackageInfo(packageName, 0).versionName
-                MaterialAlertDialogBuilder(this)
-                    .setView(binding.root)
-                    .show()
-                true
-            }
-            R.id.action_stop -> {
-                if (!Shizuku.pingBinder()) {
-                    return true
-                }
-                MaterialAlertDialogBuilder(this)
-                    .setMessage(R.string.dialog_stop_message)
-                    .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
-                        try {
-                            Shizuku.exit()
-                        } catch (e: Throwable) {
-                        }
-                    }
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .show()
-                true
-            }
-            R.id.action_settings -> {
-                startActivity(Intent(this, SettingsActivity::class.java))
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
+            )
+            binding.versionName.text = packageManager.getPackageInfo(packageName, 0).versionName
+
+            MaterialAlertDialogBuilder(this)
+                .setView(binding.root)
+                .show()
+            true
         }
+
+        R.id.action_stop -> {
+            if (!Shizuku.pingBinder()) {
+                return true
+            }
+            MaterialAlertDialogBuilder(this)
+                .setMessage(R.string.dialog_stop_message)
+                .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
+                    try {
+                        Shizuku.exit()
+                    } catch (e: Throwable) {
+                    }
+                }
+                .setNegativeButton(android.R.string.cancel, null)
+                .show()
+            true
+        }
+
+        R.id.action_settings -> {
+            startActivity(Intent(this, SettingsActivity::class.java))
+            true
+        }
+
+        else -> super.onOptionsItemSelected(item)
     }
+}
 
 }
