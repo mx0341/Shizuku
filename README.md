@@ -14,6 +14,8 @@
 
 System-Shizuku is a modified fork of Shizuku for advanced users and researchers.
 
+You must activate this System-Shizuku once using ADB before you can use CVE-2024-31317 to obtain system privileges.
+
 This fork may use **CVE-2024-31317** to obtain `system` privileges instead of relying only on ADB or root.
 
 After obtaining `system` privileges, you can try to enable wireless debugging with:

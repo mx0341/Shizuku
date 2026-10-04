@@ -14,6 +14,8 @@
 
 System-Shizuku 是面向高级用户和研究人员的 Shizuku 修改分支。
 
+你必须使用 `ADB` 激活一次此 System-Shizuku ，才能使用 **CVE-2024-31317** 获取 `system` 权限
+
 本分支可能使用 **CVE-2024-31317** 获取 `system` 权限，而不是只依赖 ADB 或 root。
 
 获取到 `system` 权限后，可以尝试使用
