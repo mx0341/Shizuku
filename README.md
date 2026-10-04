@@ -1,85 +1,137 @@
-# Shizuku
+[**English**](./README.md) | [简体中文](./README.zh-CN.md)
+
+# System-Shizuku (Unofficial Fork)
+
+> **This is NOT the official Shizuku.**
+>
+> Official project: <https://github.com/RikkaApps/Shizuku>
+>
+> This fork is not affiliated with, endorsed by, or maintained by RikkaApps.
+> Do not report issues of this fork to the official Shizuku project.
+> RikkaApps reserves the right to have the owner close/delete this project.
+
+## About this fork
+
+System-Shizuku is a modified fork of Shizuku for advanced users and researchers.
+
+This fork may use **CVE-2024-31317** to obtain `system` privileges instead of relying only on ADB or root.
+
+After obtaining `system` privileges, you can try to enable wireless debugging with:
+
+```shell
+setprop service.adb.tcp.port 5555 && settings put global adb_enabled 0 && settings put global adb_enabled 1
+```
+
+or
+
+```shell
+setprop service.adb.tcp.port 5555 && setprop ctl.restart adbd
+```
+
+`system` theoretically supports commands such as `pm hide`.
+
+Because this fork uses a different signing key, it **cannot be installed over the official Shizuku**. You must uninstall the official version first.
+
+## Changes in this fork
+
+- Uses CVE-2024-31317 to obtain `system` privileges.
+- Relaxes permission policy to allow starting Shizuku_Server on processes with uid < 10000.
+- Adds ProtectReceiver to automatically clear `hidden_api_blacklist_exemptions` injection (may be ineffective).
+
+## ⚠️ Security Warning
+
+This fork is for research and learning only. Do not use it for illegal purposes.
+
+- It may only work on **Android 9–13** with security patch **before 2024-06**.
+- Incorrect use may cause bootloop, system instability, or data loss.
+- In some cases, recovery may require a factory reset, which will erase all data.
+- Test only on a backup device. Back up your data first.
+- The developer is not responsible for any damage or data loss.
+- Whether some apps that use Shizuku can work depends on compatibility.
 
 ## Background
 
-When developing apps that requires root, the most common method is to run some commands in the su shell. For example, there is an app that uses the `pm enable/disable` command to enable/disable components.
+When developing apps that require root, the most common method is to run some commands in the `su` shell. For example, an app may use `pm enable/disable` to enable or disable components.
 
-This method has very big disadvantages:
+This method has major disadvantages:
 
-1. **Extremely slow** (Multiple process creation)
-2. Needs to process texts (**Super unreliable**)
-3. The possibility is limited to available commands
-4. Even if ADB has sufficient permissions, the app requires root privileges to run
+1. **Extremely slow** — multiple process creation.
+2. Needs to parse text output — **super unreliable**.
+3. Limited to available shell commands.
+4. Even if ADB has sufficient permissions, the app may still require root privileges.
 
-Shizuku uses a completely different way. See detailed description below.
+This fork follows a design similar to Shizuku: it uses a privileged server process and Binder IPC to provide higher-privilege system API access to apps.
 
-## User guide & Download
+## Download & Build
 
-<https://shizuku.rikka.app/>
+This fork does not publish to official app stores.
 
-## How does Shizuku work?
+- Releases: <https://github.com/mx0341/Shizuku/releases>
+- Build from source: see “Developing System-Shizuku itself” below.
 
-First, we need to talk about how app use system APIs. For example, if the app wants to get installed apps, we all know we should use `PackageManager#getInstalledPackages()`. This is actually an interprocess communication (IPC) process of the app process and system server process, just the Android framework did the inner works for us.
+Official Shizuku download page, for reference only:
 
-Android uses `binder` to do this type of IPC. `Binder` allows the server-side to learn the uid and pid of the client-side, so that the system server can check if the app has the permission to do the operation.
+- <https://shizuku.rikka.app/>
 
-Usually, if there is a "manager" (e.g., `PackageManager`) for apps to use, there should be a "service" (e.g., `PackageManagerService`) in the system server process. We can simply think if the app holds the `binder` of the "service", it can communicate with the "service". The app process will receive binders of system services on start.
+## How does it work?
 
-Shizuku guides users to run a process, Shizuku server, with root or ADB first. When the app starts, the `binder` to Shizuku server will also be sent to the app.
+First, we need to talk about how apps use system APIs. For example, if an app wants to get installed apps, we normally use `PackageManager#getInstalledPackages()`. This is actually an IPC process between the app process and the system server process; the Android framework hides the details.
 
-The most important feature Shizuku provides is something like be a middle man to receive requests from the app, sent them to the system server, and send back the results. You can see the `transactRemote` method in `rikka.shizuku.server.ShizukuService` class, and `moe.shizuku.api.ShizukuBinderWrapper` class for the detail.
+Android uses `binder` for this type of IPC. `Binder` allows the server side to learn the uid and pid of the client side, so the system server can check whether the app has permission to perform the operation.
 
-So, we reached our goal, to use system APIs with higher permission. And to the app, it is almost identical to the use of system APIs directly.
+Usually, if there is a “manager” for apps to use, there should be a “service” in the system server process. If the app holds the `binder` of the “service”, it can communicate with the “service”. The app process receives binders of system services on start.
+
+This fork guides users to run a privileged server process, similar to Shizuku. When the app starts, the `binder` to the server will also be sent to the app.
+
+The key feature is acting as a middleman: receiving requests from the app, sending them to the system server, and returning the results.
+
+So the goal is reached: use system APIs with higher permission. To the app, it is almost identical to using system APIs directly.
 
 ## Developer guide
 
 ### API & sample
 
-https://github.com/RikkaApps/Shizuku-API
+Original API reference:
 
-### Migrating from pre-v11
-
-> Existing applications still works, of course.
-
-https://github.com/RikkaApps/Shizuku-API#migration-guide-for-existing-applications-use-shizuku-pre-v11
+- <https://github.com/RikkaApps/Shizuku-API>
 
 ### Attention
 
-1. ADB permissions are limited
+1. ADB permissions are limited.
 
-   ADB has limited permissions and different on various system versions. You can see permissions granted to ADB [here](https://github.com/aosp-mirror/platform_frameworks_base/blob/master/packages/Shell/AndroidManifest.xml).
+   ADB has limited permissions and they differ across Android versions. Before calling the API, check whether the server has sufficient permissions.
 
-   Before calling the API, you can use `ShizukuService#getUid` to check if Shizuku is running user ADB, or use `ShizukuService#checkPermission` to check if the server has sufficient permissions.
+2. Hidden API limitation from Android 9.
 
-2. Hidden API limitation from Android 9
+   As of Android 9, usage of hidden APIs is limited for normal apps. Use other methods, such as AndroidHiddenApiBypass.
 
-   As of Android 9, the usage of the hidden APIs is limited for normal apps. Please use other methods (such as <https://github.com/LSPosed/AndroidHiddenApiBypass>).
+3. Android 8.0 & ADB.
 
-3. Android 8.0 & ADB
+   On some versions, ADB lacks permissions for certain observers. If you need to use the service in a process that may not be started by an Activity, trigger the binder send by starting a transparent activity.
 
-   At present, the way Shizuku service gets the app process is to combine `IActivityManager#registerProcessObserver` and `IActivityManager#registerUidObserver` (26+) to ensure that the app process will be sent when the app starts. However, on API 26, ADB lacks permissions to use `registerUidObserver`, so if you need to use Shizuku in a process that might not be started by an Activity, it is recommended to trigger the send binder by starting a transparent activity.
+4. Direct use of `transactRemote` requires attention.
 
-4. Direct use of `transactRemote` requires attention
+   The API may differ under different Android versions. Check carefully. Also, `SystemServiceHelper.getTransactionCode` may not always get the correct transaction code.
 
-   * The API may be different under different Android versions, please be sure to check it carefully. Also, the `android.app.IActivityManager` has the aidl form in API 26 and later, and `android.app.IActivityManager$Stub` exists only on API 26.
-
-   * `SystemServiceHelper.getTransactionCode` may not get the correct transaction code, such as `android.content.pm.IPackageManager$Stub.TRANSACTION_getInstalledPackages` does not exist on API 25 and there is `android.content.pm.IPackageManager$Stub.TRANSACTION_getInstalledPackages_47` (this situation has been dealt with, but it is not excluded that there may be other circumstances). This problem is not encountered with the `ShizukuBinderWrapper` method.
-
-## Developing Shizuku itself
+## Developing System-Shizuku itself
 
 ### Build
 
 - Clone with `git clone --recurse-submodules`
 - Run gradle task `:manager:assembleDebug` or `:manager:assembleRelease`
 
-The `:manager:assembleDebug` task generates a debuggable server. You can attach a debugger to `shizuku_server` to debug the server. Be aware that, in Android Studio, "Run/Debug configurations" - "Always install with package manager" should be checked, so that the server will use the latest code.
+The `:manager:assembleDebug` task generates a debuggable server. You can attach a debugger to `shizuku_server` to debug the server. In Android Studio, check “Always install with package manager” in “Run/Debug configurations”, so the server uses the latest code.
 
 ## License
 
-All code files in this project are licensed under Apache 2.0
+All code files in this project are licensed under Apache 2.0.
 
-Under Apache 2.0 section 6, specifically:
+This project is a modified fork of Shizuku by RikkaApps.
 
-* You are **FORBIDDEN** to use `manager/src/main/res/mipmap*/ic_launcher*.png` image files, unless for displaying Shizuku itself.
+- Upstream: <https://github.com/RikkaApps/Shizuku>
+- Copyright (c) RikkaApps
 
-* You are **FORBIDDEN** to use `Shizuku` as app name or use `moe.shizuku.privileged.api` as application id or declare `moe.shizuku.manager.permission.*` permission.
+Under Apache 2.0 section 6, and the upstream project’s additional restrictions:
+
+- You are **FORBIDDEN** to use `manager/src/main/res/mipmap*/ic_launcher*.png` image files, unless for displaying Shizuku itself.
+- You are **FORBIDDEN** to use `Shizuku` as app name, use `moe.shizuku.privileged.api` as application id, or declare `moe.shizuku.manager.permission.*` permission.

