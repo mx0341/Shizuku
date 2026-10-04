@@ -8,6 +8,7 @@ if (ksFile.canRead()) {
         android.signingConfigs.sign.storePassword props['KEYSTORE_PASSWORD']
         android.signingConfigs.sign.keyAlias props['KEYSTORE_ALIAS']
         android.signingConfigs.sign.keyPassword props['KEYSTORE_ALIAS_PASSWORD']
+        android.signingConfigs.sign.storeType "PKCS12"
     }
 } else {
     android.signingConfigs.sign.storeFile = android.signingConfigs.debug.storeFile
