@@ -171,7 +171,7 @@ public class Util {
 	}
 
 	public static boolean canUsePoc() {
-		return Build.VERSION.SDK_INT >= 28 && Build.VERSION.SDK_INT <= 33 && !isSecurityPatchUpToDate(); 
+		return Build.VERSION.SDK_INT >= 28 && Build.VERSION.SDK_INT <= 34 && !isSecurityPatchUpToDate(); 
 	}
 
 	public static String getSecurityPatchLevel() {
