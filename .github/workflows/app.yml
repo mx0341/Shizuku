@@ -26,8 +26,8 @@ jobs:
           echo KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }} > signing.properties
           echo KEYSTORE_ALIAS=${{ secrets.KEYSTORE_ALIAS }} >> signing.properties
           echo KEYSTORE_ALIAS_PASSWORD='${{ secrets.KEYSTORE_ALIAS_PASSWORD }}' >> signing.properties
-          echo KEYSTORE_FILE=../key.jks >> signing.properties
-          echo ${{ secrets.KEYSTORE }} | base64 --decode > key.jks
+          echo KEYSTORE_FILE=../key.p12 >> signing.properties
+          echo ${{ secrets.KEYSTORE }} | base64 --decode > key.p12
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
